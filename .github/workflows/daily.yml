@@ -1,7 +1,7 @@
-name: Repository 2 - Unified Docker Cycle (05:30 PM IST)
+name: Repository 5 - Unified Night Cycle (12h Offset) (04:00 AM IST)
 on:
   schedule:
-    - cron: "0 12 * * *"
+    - cron: "30 22 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -48,13 +48,13 @@ jobs:
           curl -s -H "Authorization: Bearer $ORCHESTRATOR_TOKEN" "$MATRIX_DB_HOST/api/farm/runner-env?group=$GROUP_ID" > runner_env.json
 
           # Inject all variables directly into the runner memory!
-          echo "ACCOUNT_1=$(jq -r .account_1 runner_env.json)" >> $GITHUB_ENV
-          echo "ACCOUNT_2=$(jq -r .account_2 runner_env.json)" >> $GITHUB_ENV
-          echo "ACCOUNT_3=$(jq -r .account_3 runner_env.json)" >> $GITHUB_ENV
+          echo "ACCOUNT_4=$(jq -r .account_4 runner_env.json)" >> $GITHUB_ENV
+          echo "ACCOUNT_5=$(jq -r .account_5 runner_env.json)" >> $GITHUB_ENV
+          echo "ACCOUNT_6=$(jq -r .account_6 runner_env.json)" >> $GITHUB_ENV
 
-          echo "SESSION_RESTORE_URL_ONE=$(jq -r .restore_url_1 runner_env.json)" >> $GITHUB_ENV
-          echo "SESSION_RESTORE_URL_TWO=$(jq -r .restore_url_2 runner_env.json)" >> $GITHUB_ENV
-          echo "SESSION_RESTORE_URL_THREE=$(jq -r .restore_url_3 runner_env.json)" >> $GITHUB_ENV
+          echo "SESSION_RESTORE_URL_FOUR=$(jq -r .restore_url_4 runner_env.json)" >> $GITHUB_ENV
+          echo "SESSION_RESTORE_URL_FIVE=$(jq -r .restore_url_5 runner_env.json)" >> $GITHUB_ENV
+          echo "SESSION_RESTORE_URL_SIX=$(jq -r .restore_url_6 runner_env.json)" >> $GITHUB_ENV
 
           echo "DISCORD_WEBHOOK_URL=$(jq -r .discord_webhook_url runner_env.json)" >> $GITHUB_ENV
 
@@ -64,32 +64,32 @@ jobs:
         id: legacy
         if: env.EXECUTION_MODE == 'LEGACY'
         env:
-          ACCOUNT_1: ${{ secrets.ACCOUNT_1 }}
-          ACCOUNT_2: ${{ secrets.ACCOUNT_2 }}
-          ACCOUNT_3: ${{ secrets.ACCOUNT_3 }}
-          SESSION_RESTORE_URL_ONE: ${{ secrets.SESSION_RESTORE_URL_ONE }}
-          SESSION_RESTORE_URL_TWO: ${{ secrets.SESSION_RESTORE_URL_TWO }}
-          SESSION_RESTORE_URL_THREE: ${{ secrets.SESSION_RESTORE_URL_THREE }}
-          SCRIPT_URL_ONE: ${{ secrets.SCRIPT_URL_ONE }}
-          SCRIPT_URL_TWO: ${{ secrets.SCRIPT_URL_TWO }}
-          SCRIPT_URL_THREE: ${{ secrets.SCRIPT_URL_THREE }}
+          ACCOUNT_4: ${{ secrets.ACCOUNT_4 }}
+          ACCOUNT_5: ${{ secrets.ACCOUNT_5 }}
+          ACCOUNT_6: ${{ secrets.ACCOUNT_6 }}
+          SESSION_RESTORE_URL_FOUR: ${{ secrets.SESSION_RESTORE_URL_FOUR }}
+          SESSION_RESTORE_URL_FIVE: ${{ secrets.SESSION_RESTORE_URL_FIVE }}
+          SESSION_RESTORE_URL_SIX: ${{ secrets.SESSION_RESTORE_URL_SIX }}
+          SCRIPT_URL_FOUR: ${{ secrets.SCRIPT_URL_FOUR }}
+          SCRIPT_URL_FIVE: ${{ secrets.SCRIPT_URL_FIVE }}
+          SCRIPT_URL_SIX: ${{ secrets.SCRIPT_URL_SIX }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           COLLECTOR_URL: ${{ secrets.COLLECTOR_URL }}
           COLLECTOR_TOKEN: ${{ secrets.COLLECTOR_TOKEN }}
           HMAC_SECRET: ${{ secrets.HMAC_SECRET }}
         run: |
           echo "Injecting standard GitHub Secrets into Environment..."
-          echo "ACCOUNT_1=$ACCOUNT_1" >> $GITHUB_ENV
-          echo "ACCOUNT_2=$ACCOUNT_2" >> $GITHUB_ENV
-          echo "ACCOUNT_3=$ACCOUNT_3" >> $GITHUB_ENV
+          echo "ACCOUNT_4=$ACCOUNT_4" >> $GITHUB_ENV
+          echo "ACCOUNT_5=$ACCOUNT_5" >> $GITHUB_ENV
+          echo "ACCOUNT_6=$ACCOUNT_6" >> $GITHUB_ENV
 
-          echo "SESSION_RESTORE_URL_ONE=$SESSION_RESTORE_URL_ONE" >> $GITHUB_ENV
-          echo "SESSION_RESTORE_URL_TWO=$SESSION_RESTORE_URL_TWO" >> $GITHUB_ENV
-          echo "SESSION_RESTORE_URL_THREE=$SESSION_RESTORE_URL_THREE" >> $GITHUB_ENV
+          echo "SESSION_RESTORE_URL_FOUR=$SESSION_RESTORE_URL_FOUR" >> $GITHUB_ENV
+          echo "SESSION_RESTORE_URL_FIVE=$SESSION_RESTORE_URL_FIVE" >> $GITHUB_ENV
+          echo "SESSION_RESTORE_URL_SIX=$SESSION_RESTORE_URL_SIX" >> $GITHUB_ENV
 
-          echo "SCRIPT_URL_ONE=$SCRIPT_URL_ONE" >> $GITHUB_ENV
-          echo "SCRIPT_URL_TWO=$SCRIPT_URL_TWO" >> $GITHUB_ENV
-          echo "SCRIPT_URL_THREE=$SCRIPT_URL_THREE" >> $GITHUB_ENV
+          echo "SCRIPT_URL_FOUR=$SCRIPT_URL_FOUR" >> $GITHUB_ENV
+          echo "SCRIPT_URL_FIVE=$SCRIPT_URL_FIVE" >> $GITHUB_ENV
+          echo "SCRIPT_URL_SIX=$SCRIPT_URL_SIX" >> $GITHUB_ENV
 
           echo "DISCORD_WEBHOOK_URL=$DISCORD_WEBHOOK_URL" >> $GITHUB_ENV
 
@@ -107,35 +107,35 @@ jobs:
           INDEX=$(( (DAY_NUM - 1) % 3 ))
 
           if [ "$INDEX" -eq 0 ]; then
-             echo "Using two.sh -> Account 2"
-             echo "ACTIVE_ACCOUNT=$ACCOUNT_2" >> $GITHUB_ENV
-             echo "ACCOUNT_NAME=Account 2" >> $GITHUB_ENV
+             echo "Using five.sh -> Account 5"
+             echo "ACTIVE_ACCOUNT=$ACCOUNT_5" >> $GITHUB_ENV
+             echo "ACCOUNT_NAME=Account 5" >> $GITHUB_ENV
              if [ "$EXECUTION_MODE" == "DYNAMIC" ]; then
-                echo "TARGET_SCRIPT_URL=$MATRIX_DB_HOST/api/farm/payload?group=$GROUP_ID&sequence=two" >> $GITHUB_ENV
+                echo "TARGET_SCRIPT_URL=$MATRIX_DB_HOST/api/farm/payload?group=$GROUP_ID&sequence=five" >> $GITHUB_ENV
              else
-                echo "TARGET_SCRIPT_URL=$SCRIPT_URL_TWO" >> $GITHUB_ENV
+                echo "TARGET_SCRIPT_URL=$SCRIPT_URL_FIVE" >> $GITHUB_ENV
              fi
-             echo "TARGET_RESTORE_URL=$SESSION_RESTORE_URL_TWO" >> $GITHUB_ENV
+             echo "TARGET_RESTORE_URL=$SESSION_RESTORE_URL_FIVE" >> $GITHUB_ENV
           elif [ "$INDEX" -eq 1 ]; then
-             echo "Using three.sh -> Account 3"
-             echo "ACTIVE_ACCOUNT=$ACCOUNT_3" >> $GITHUB_ENV
-             echo "ACCOUNT_NAME=Account 3" >> $GITHUB_ENV
+             echo "Using six.sh -> Account 6"
+             echo "ACTIVE_ACCOUNT=$ACCOUNT_6" >> $GITHUB_ENV
+             echo "ACCOUNT_NAME=Account 6" >> $GITHUB_ENV
              if [ "$EXECUTION_MODE" == "DYNAMIC" ]; then
-                echo "TARGET_SCRIPT_URL=$MATRIX_DB_HOST/api/farm/payload?group=$GROUP_ID&sequence=three" >> $GITHUB_ENV
+                echo "TARGET_SCRIPT_URL=$MATRIX_DB_HOST/api/farm/payload?group=$GROUP_ID&sequence=six" >> $GITHUB_ENV
              else
-                echo "TARGET_SCRIPT_URL=$SCRIPT_URL_THREE" >> $GITHUB_ENV
+                echo "TARGET_SCRIPT_URL=$SCRIPT_URL_SIX" >> $GITHUB_ENV
              fi
-             echo "TARGET_RESTORE_URL=$SESSION_RESTORE_URL_THREE" >> $GITHUB_ENV
+             echo "TARGET_RESTORE_URL=$SESSION_RESTORE_URL_SIX" >> $GITHUB_ENV
           else
-             echo "Using one.sh -> Account 1"
-             echo "ACTIVE_ACCOUNT=$ACCOUNT_1" >> $GITHUB_ENV
-             echo "ACCOUNT_NAME=Account 1" >> $GITHUB_ENV
+             echo "Using four.sh -> Account 4"
+             echo "ACTIVE_ACCOUNT=$ACCOUNT_4" >> $GITHUB_ENV
+             echo "ACCOUNT_NAME=Account 4" >> $GITHUB_ENV
              if [ "$EXECUTION_MODE" == "DYNAMIC" ]; then
-                echo "TARGET_SCRIPT_URL=$MATRIX_DB_HOST/api/farm/payload?group=$GROUP_ID&sequence=one" >> $GITHUB_ENV
+                echo "TARGET_SCRIPT_URL=$MATRIX_DB_HOST/api/farm/payload?group=$GROUP_ID&sequence=four" >> $GITHUB_ENV
              else
-                echo "TARGET_SCRIPT_URL=$SCRIPT_URL_ONE" >> $GITHUB_ENV
+                echo "TARGET_SCRIPT_URL=$SCRIPT_URL_FOUR" >> $GITHUB_ENV
              fi
-             echo "TARGET_RESTORE_URL=$SESSION_RESTORE_URL_ONE" >> $GITHUB_ENV
+             echo "TARGET_RESTORE_URL=$SESSION_RESTORE_URL_FOUR" >> $GITHUB_ENV
           fi
 
       - name: Send IP to collector (Ingest)
@@ -224,8 +224,8 @@ jobs:
         if: env.SHOULD_RUN == 'true'
         env:
           ORCHESTRATOR_TOKEN: ${{ secrets.ORCHESTRATOR_TOKEN }}
-          PROJECT_NAME: '007-of-two'
-          SESSION_COPY_DELAY: 3300 # Wait 95 minutes before copying sessions
+          PROJECT_NAME: '007-of-five'
+          SESSION_COPY_DELAY: 5700 # Wait 95 minutes before copying sessions
           ENABLE_SESSION_UPLOAD: 'true' # Set to 'false' to disable artifact upload
           ENABLE_ARTIFACT_UPLOAD: 'true' # Upload as Build Artifact
           ENABLE_RELEASE_UPLOAD: 'false' # Upload to GitHub Release
